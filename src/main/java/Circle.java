@@ -23,4 +23,9 @@ public class Circle implements Figure{
     public Figure clone(){
         return new Circle(this);
     }
+    @Override
+    public String toString(){
+        Class cl = getClass();
+        return cl.getSimpleName() + ": radius: " + this.radius;
+    }
 }

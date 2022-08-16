@@ -11,14 +11,22 @@ public class Main {
         }while(!(figName.equals("circle")) && !(figName.equals("rectangle")) && !(figName.equals("triangle")));
         switch(figName){
             case "circle":
-                System.out.print("Enter circle's radius: ");
+                System.out.println("Enter circle's radius:");
                 double rad = Double.parseDouble(scanner.nextLine());
-                System.out.println();
-                figure = createFigure.createCircle(rad);//TODO: ДА ГО ДООБМИСЛЯ
+                figure = createFigure.createCircle(rad);
                 break;
             case "rectangle":
+                System.out.println("Enter rectangle's sides:");
+                double length = Double.parseDouble(scanner.nextLine());
+                double width = Double.parseDouble(scanner.nextLine());
+                figure = createFigure.createRectangle(length, width);
                 break;
             case "triangle":
+                System.out.println("Enter triangle's sides:");
+                double sideA = Double.parseDouble(scanner.nextLine());
+                double sideB = Double.parseDouble(scanner.nextLine());
+                double sideC = Double.parseDouble(scanner.nextLine());
+                figure = createFigure.createTriangle(sideA, sideB, sideC);
                 break;
         }
     }

@@ -31,4 +31,9 @@ public class Rectangle implements Figure{
     public Figure clone(){
         return new Rectangle(this);
     }
+    @Override
+    public String toString(){
+        Class cl = getClass();
+        return cl.getSimpleName() + ": length: " + this.length + " width: " + this.width;
+    }
 }

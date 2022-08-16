@@ -40,4 +40,9 @@ public class Triangle implements Figure {
     public Figure clone(){
         return new Triangle(this);
     }
+    @Override
+    public String toString(){
+        Class cl = getClass();
+        return cl.getSimpleName() + ": side A: " + this.sideA + " side B: " + this.sideB + " side C: " + this.sideC;
+    }//TODO: ДА ОПРАВЯ ФАЙЛОВЕТЕ И РАНДОМ СЪЗДАВАНЕТО
 }
