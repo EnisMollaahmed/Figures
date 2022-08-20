@@ -1,12 +1,18 @@
-import java.io.*;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
-import java.util.Random;
 import java.util.ArrayList;
-public class Main {//TODO:ДА ПОСАВЯ ФИГУРИТЕ В МАСИВ, КОЙТО МОЖЕ ДА СИ ПРОМЕНЯ РАЗМЕРА
-    public static void main(String[] args){
-        ArrayList<Figure> figuresArr = new ArrayList<Figure>();
+import java.util.Scanner;
 
+public class ReadData {
+    private static ReadData instance;
+    private ReadData(){};
+    public static ReadData getInstance(){
+        if(instance == null){
+            instance = new ReadData();
+        }
+        return instance;
     }
     public String extractNumbers(String line){
         String extractNums = line;
@@ -15,32 +21,9 @@ public class Main {//TODO:ДА ПОСАВЯ ФИГУРИТЕ В МАСИВ, КО
         extractNums = extractNums.replaceAll(" + ", " ");
         return extractNums;
     }
-    public void createRandomFigures(int countOfFigures){
+    public void readFromFile(String fileName, ArrayList<Figure> figuresArr){
         CreateFigure createFigure = CreateFigure.getInstance();
-        Figure figure;
-        Random rand = new Random();
-        int chooseFig = rand.nextInt(3);
-        switch (chooseFig){
-            case 0:
-                double radius = rand.nextDouble();
-                figure = createFigure.createCircle(radius);
-                break;
-            case 1:
-                double width = rand.nextDouble();
-                double length = rand.nextDouble();
-                figure = createFigure.createRectangle(length, width);
-                break;
-            case 2:
-                double sideA = rand.nextDouble();
-                double sideB = rand.nextDouble();
-                double sideC = rand.nextDouble();
-                figure = createFigure.createTriangle(sideA, sideB, sideC);
-                break;
-        }
-    }
-    public void readFromFile(String fileName){
-        CreateFigure createFigure = CreateFigure.getInstance();
-        Figure figure;
+        Figure figure = null;
         try {
             File myFile = new File(fileName);
             if(myFile.createNewFile()){
@@ -74,13 +57,14 @@ public class Main {//TODO:ДА ПОСАВЯ ФИГУРИТЕ В МАСИВ, КО
                     figure = createFigure.createTriangle(sideA, sideB, sideC);
                     break;
             }
+            figuresArr.add(figure);
             scanner.close();
         }catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
     }
-    public void readFromTheConsole() {
+    public void readFromTheConsole(ArrayList<Figure> figuresArr) {
         Scanner scanner = new Scanner(System.in);
         CreateFigure createFigure = CreateFigure.getInstance();
         Figure figure = null;
@@ -110,29 +94,7 @@ public class Main {//TODO:ДА ПОСАВЯ ФИГУРИТЕ В МАСИВ, КО
                 figure = createFigure.createTriangle(sideA, sideB, sideC);
                 break;
         }
+        figuresArr.add(figure);
         scanner.close();
     }
-    /*public Figure makeFigure(String figName, Figure figure, Scanner scanner, CreateFigure createFigure){
-        switch(figName){
-            case "circle":
-                System.out.println("Enter circle's extractRadius:");
-                double rad = Double.parseDouble(scanner.nextLine());
-                figure = createFigure.createCircle(rad);
-                break;
-            case "rectangle":
-                System.out.println("Enter rectangle's sides:");
-                double length = Double.parseDouble(scanner.nextLine());
-                double width = Double.parseDouble(scanner.nextLine());
-                figure = createFigure.createRectangle(length, width);
-                break;
-            case "triangle":
-                System.out.println("Enter triangle's sides:");
-                double sideA = Double.parseDouble(scanner.nextLine());
-                double sideB = Double.parseDouble(scanner.nextLine());
-                double sideC = Double.parseDouble(scanner.nextLine());
-                figure = createFigure.createTriangle(sideA, sideB, sideC);
-                break;
-        }
-        return figure;
-    }*/
 }
