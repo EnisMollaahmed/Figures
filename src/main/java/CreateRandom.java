@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 import java.util.Random;
-
 public class CreateRandom {
     private static CreateRandom instance;
+    private GlobalConstsAndVars values = GlobalConstsAndVars.getInstance();
     private CreateRandom(){}
     public static CreateRandom getInstance(){
         if(instance == null){
@@ -10,28 +10,30 @@ public class CreateRandom {
         }
         return instance;
     }
-    public void createRandomFigures(ArrayList<Figure> figuresArr){
+    public void createRandomFigures(ArrayList<Figure> figuresArr, int figsCount){
         CreateFigure createFigure = CreateFigure.getInstance();
         Figure figure = null;
         Random rand = new Random();
-        int chooseFig = rand.nextInt(3);
-        switch (chooseFig){
-            case 0:
-                double radius = rand.nextDouble();
-                figure = createFigure.createCircle(radius);
-                break;
-            case 1:
-                double width = rand.nextDouble();
-                double length = rand.nextDouble();
-                figure = createFigure.createRectangle(length, width);
-                break;
-            case 2:
-                double sideA = rand.nextDouble();
-                double sideB = rand.nextDouble();
-                double sideC = rand.nextDouble();
-                figure = createFigure.createTriangle(sideA, sideB, sideC);
-                break;
+        for (int i = 0; i < figsCount; i++){
+            int chooseFig = rand.nextInt(3);
+            switch (chooseFig){
+                case 0:
+                    double radius = (rand.nextDouble() * ((values.MAX - values.MIN) + 1)) +  values.MIN;
+                    figure = createFigure.createCircle(radius);
+                    break;
+                case 1:
+                    double width = (rand.nextDouble() * ((values.MAX - values.MIN) + 1)) +  values.MIN;
+                    double length = (rand.nextDouble() * ((values.MAX - values.MIN) + 1)) +  values.MIN;
+                    figure = createFigure.createRectangle(length, width);
+                    break;
+                case 2:
+                    double sideA = (rand.nextDouble() * ((values.MAX - values.MIN) + 1)) +  values.MIN;
+                    double sideB = (rand.nextDouble() * ((values.MAX - values.MIN) + 1)) +  values.MIN;
+                    double sideC = (rand.nextDouble() * ((values.MAX - values.MIN) + 1)) +  values.MIN;
+                    figure = createFigure.createTriangle(sideA, sideB, sideC);
+                    break;
+            }
+            figuresArr.add(figure);
         }
-        figuresArr.add(figure);
     }
 }

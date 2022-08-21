@@ -21,80 +21,89 @@ public class ReadData {
         extractNums = extractNums.replaceAll(" + ", " ");
         return extractNums;
     }
+    public String extractFigureName(String extractFigureName){
+        extractFigureName = extractFigureName.replaceAll("[0-9]", "");
+        extractFigureName = extractFigureName.trim();
+        extractFigureName = extractFigureName.toLowerCase();
+        return extractFigureName;
+    }
     public void readFromFile(String fileName, ArrayList<Figure> figuresArr){
         CreateFigure createFigure = CreateFigure.getInstance();
         Figure figure = null;
         try {
             File myFile = new File(fileName);
-            if(myFile.createNewFile()){
-                System.out.println("The file is created.");
+            if (myFile.exists()){
+                FileReader file = new FileReader(myFile.getAbsolutePath());
+                BufferedReader buffReader = new BufferedReader(file);
+                String line = buffReader.readLine();
+                while( line  != null){
+                    String extractFigureName = extractFigureName(line);
+                    Scanner scanner = new Scanner(extractNumbers(line));
+                    switch (extractFigureName){
+                        case "circle":
+                            double radius = Double.parseDouble(scanner.next());
+                            figure = createFigure.createCircle(radius);
+                            break;
+                        case"rectangle":
+                            double length = Double.parseDouble(scanner.next());
+                            double width = Double.parseDouble(scanner.next());
+                            figure = createFigure.createRectangle(length, width);
+                            break;
+                        case "triangle":
+                            double sideA = Double.parseDouble(scanner.next());
+                            double sideB = Double.parseDouble(scanner.next());
+                            double sideC = Double.parseDouble(scanner.next());
+                            figure = createFigure.createTriangle(sideA, sideB, sideC);
+                            break;
+                    }
+                    figuresArr.add(figure);
+                    line = buffReader.readLine();
+                    scanner.close();
+                }
+
+                buffReader.close();
+            }else{
+                System.out.println("Invalid file name or file path!");
+                return;
             }
-            else{
-                System.out.println("The file already exists.");
-            }
-            FileReader file = new FileReader(myFile.getAbsolutePath());
-            BufferedReader buffReader = new BufferedReader(file);
-            String line = buffReader.readLine();
-            String extractFigureName = line;
-            extractFigureName = extractFigureName.replaceAll("[0-9]", "");
-            extractFigureName = extractFigureName.trim();
-            extractFigureName = extractFigureName.toLowerCase();
-            Scanner scanner = new Scanner(extractNumbers(line));
-            switch (extractFigureName){
-                case "circle":
-                    double radius = Double.parseDouble(scanner.next());
-                    figure = createFigure.createCircle(radius);
-                    break;
-                case"rectangle":
-                    double length = Double.parseDouble(scanner.next());
-                    double width = Double.parseDouble(scanner.next());
-                    figure = createFigure.createRectangle(length, width);
-                    break;
-                case "triangle":
-                    double sideA = Double.parseDouble(scanner.next());
-                    double sideB = Double.parseDouble(scanner.next());
-                    double sideC = Double.parseDouble(scanner.next());
-                    figure = createFigure.createTriangle(sideA, sideB, sideC);
-                    break;
-            }
-            figuresArr.add(figure);
-            scanner.close();
         }catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
     }
-    public void readFromTheConsole(ArrayList<Figure> figuresArr) {
+    public void readFromTheConsole(ArrayList<Figure> figuresArr, int figCount) {
         Scanner scanner = new Scanner(System.in);
         CreateFigure createFigure = CreateFigure.getInstance();
         Figure figure = null;
         String figName;
-        do{
-            figName = scanner.nextLine();
-            figName.toLowerCase();
-        }while(!(figName.equals("circle")) && !(figName.equals("rectangle")) && !(figName.equals("triangle")));
-        //makeFigure(figName, figure, scanner, createFigure); TODO: TO RESEARCH GENERIC
-        switch(figName){
-            case "circle":
-                System.out.println("Enter circle's extractRadius:");
-                double rad = Double.parseDouble(scanner.nextLine());
-                figure = createFigure.createCircle(rad);
-                break;
-            case "rectangle":
-                System.out.println("Enter rectangle's sides:");
-                double length = Double.parseDouble(scanner.nextLine());
-                double width = Double.parseDouble(scanner.nextLine());
-                figure = createFigure.createRectangle(length, width);
-                break;
-            case "triangle":
-                System.out.println("Enter triangle's sides:");
-                double sideA = Double.parseDouble(scanner.nextLine());
-                double sideB = Double.parseDouble(scanner.nextLine());
-                double sideC = Double.parseDouble(scanner.nextLine());
-                figure = createFigure.createTriangle(sideA, sideB, sideC);
-                break;
+        for(int i = 0; i < figCount; i++){
+            do{
+                figName = scanner.nextLine();
+                figName.toLowerCase();
+            }while(!(figName.equals("circle")) && !(figName.equals("rectangle")) && !(figName.equals("triangle")));
+            //makeFigure(figName, figure, scanner, createFigure); TODO: TO RESEARCH GENERIC
+            switch(figName){
+                case "circle":
+                    System.out.println("Enter circle's extractRadius:");
+                    double rad = Double.parseDouble(scanner.nextLine());
+                    figure = createFigure.createCircle(rad);
+                    break;
+                case "rectangle":
+                    System.out.println("Enter rectangle's sides:");
+                    double length = Double.parseDouble(scanner.nextLine());
+                    double width = Double.parseDouble(scanner.nextLine());
+                    figure = createFigure.createRectangle(length, width);
+                    break;
+                case "triangle":
+                    System.out.println("Enter triangle's sides:");
+                    double sideA = Double.parseDouble(scanner.nextLine());
+                    double sideB = Double.parseDouble(scanner.nextLine());
+                    double sideC = Double.parseDouble(scanner.nextLine());
+                    figure = createFigure.createTriangle(sideA, sideB, sideC);
+                    break;
+            }
+            figuresArr.add(figure);
         }
-        figuresArr.add(figure);
         scanner.close();
     }
 }
