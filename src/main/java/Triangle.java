@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Triangle implements Figure {
     private double sideA;
     private double sideB;
@@ -6,28 +8,16 @@ public class Triangle implements Figure {
     public double perimeter(){
         return sideA + sideB + sideC;
     }
+    Triangle(String values){
+        Scanner scanner = new Scanner(values);
+        sideA = Double.parseDouble(scanner.next());
+        sideB = Double.parseDouble(scanner.next());
+        sideC = Double.parseDouble(scanner.next());
+    }
     Triangle(double A, double B, double C){
         sideA = A;
         sideB = B;
         sideC = C;
-    }
-    public void setSideA(double sideA){
-        this.sideA = sideA;
-    }
-    public void setSideB(double SideB){
-        this.sideB = sideB;
-    }
-    public void setSideC(double sideC){
-        this.sideC = sideC;
-    }
-    public double getSideA(){
-        return sideA;
-    }
-    public double getSideB(){
-        return sideB;
-    }
-    public double getSideC(){
-        return sideC;
     }
     Triangle(Triangle target){
         if(target != null){
@@ -44,5 +34,5 @@ public class Triangle implements Figure {
     public String toString(){
         Class cl = getClass();
         return cl.getSimpleName() + ": side A: " + this.sideA + " side B: " + this.sideB + " side C: " + this.sideC;
-    }//TODO: ДА ОПРАВЯ ФАЙЛОВЕТЕ И РАНДОМ СЪЗДАВАНЕТО
+    }
 }

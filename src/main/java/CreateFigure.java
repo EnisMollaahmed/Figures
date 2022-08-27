@@ -1,19 +1,23 @@
+import java.lang.reflect.*;
 public class CreateFigure {
-    private static CreateFigure instance;
-    private CreateFigure(){}
-    public static CreateFigure getInstance(){
-        if (instance == null){
-            instance = new CreateFigure();
+    public Figure CreateOneFigure(String figureName, String values) throws ClassNotFoundException,
+            NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        String fullName = "Figures.src.main.java." + figureName;
+        Class fig = Class.forName(fullName);
+        Constructor constructor = fig.getConstructor(String.class);
+        Figure figure = null;
+
+        switch (figureName){
+            case "Triangle":
+                figure = (Triangle)constructor.newInstance(values);
+                break;
+            case "Rectangle":
+                figure = (Rectangle)constructor.newInstance(values);
+                break;
+            case "Circle":
+                figure = (Circle)constructor.newInstance(values);
+                break;
         }
-        return instance;
-    }
-    public Triangle createTriangle(double Aside, double Bside, double Cside){
-        return new Triangle(Aside, Bside, Cside);
-    }
-    public Circle createCircle(double rad){
-        return new Circle(rad);
-    }
-    public Rectangle createRectangle(double length, double width){
-        return new Rectangle(length, width);
+        return figure;
     }
 }

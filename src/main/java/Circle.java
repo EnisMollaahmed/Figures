@@ -1,15 +1,15 @@
 import java.lang.Math;
+import java.util.Scanner;
 public class Circle implements Figure{
     private double radius;
-    public void setRadius(double radius1){
-        radius = radius1;
-    }
-    public double getRadius(){
-        return radius;
-    }
+    private ExtractString extractString;
     @Override
     public double perimeter(){
         return 2 * Math.PI * radius;
+    }
+    Circle(String values){
+        Scanner scanner = new Scanner(values);
+        radius = Double.parseDouble(scanner.next());
     }
     Circle(double radius){
         this.radius = radius;

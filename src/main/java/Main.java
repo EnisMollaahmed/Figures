@@ -1,11 +1,13 @@
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
 import java.io.IOException;
 import java.util.Random;
 import java.util.ArrayList;
 public class Main {//TODO: RESEARCH GENERICS
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException, InvocationTargetException,
+            NoSuchMethodException, InstantiationException, IllegalAccessException {
         Scanner sc = new Scanner(System.in);
 
         ArrayList<Figure> figuresArr = new ArrayList<Figure>();
@@ -48,28 +50,3 @@ public class Main {//TODO: RESEARCH GENERICS
         }
     }
 }
-
-/*public Figure makeFigure(String figName, Figure figure, Scanner scanner, CreateFigure createFigure){
-        switch(figName){
-            case "circle":
-                System.out.println("Enter circle's extractRadius:");
-                double rad = Double.parseDouble(scanner.nextLine());
-                figure = createFigure.createCircle(rad);
-                break;
-            case "rectangle":
-                System.out.println("Enter rectangle's sides:");
-                double length = Double.parseDouble(scanner.nextLine());
-                double width = Double.parseDouble(scanner.nextLine());
-                figure = createFigure.createRectangle(length, width);
-                break;
-            case "triangle":
-                System.out.println("Enter triangle's sides:");
-                double sideA = Double.parseDouble(scanner.nextLine());
-                double sideB = Double.parseDouble(scanner.nextLine());
-                double sideC = Double.parseDouble(scanner.nextLine());
-                figure = createFigure.createTriangle(sideA, sideB, sideC);
-                break;
-        }
-        return figure;
-    }*/
-

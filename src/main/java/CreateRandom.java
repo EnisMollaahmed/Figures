@@ -11,7 +11,6 @@ public class CreateRandom {
         return instance;
     }
     public void createRandomFigures(ArrayList<Figure> figuresArr, int figsCount){
-        CreateFigure createFigure = CreateFigure.getInstance();
         Figure figure = null;
         Random rand = new Random();
         for (int i = 0; i < figsCount; i++){
@@ -19,18 +18,18 @@ public class CreateRandom {
             switch (chooseFig){
                 case 0:
                     double radius = (rand.nextDouble() * ((values.MAX - values.MIN) + 1)) +  values.MIN;
-                    figure = createFigure.createCircle(radius);
+                    figure = new Circle(radius);
                     break;
                 case 1:
                     double width = (rand.nextDouble() * ((values.MAX - values.MIN) + 1)) +  values.MIN;
                     double length = (rand.nextDouble() * ((values.MAX - values.MIN) + 1)) +  values.MIN;
-                    figure = createFigure.createRectangle(length, width);
+                    figure = new Rectangle(length, width);
                     break;
                 case 2:
                     double sideA = (rand.nextDouble() * ((values.MAX - values.MIN) + 1)) +  values.MIN;
                     double sideB = (rand.nextDouble() * ((values.MAX - values.MIN) + 1)) +  values.MIN;
                     double sideC = (rand.nextDouble() * ((values.MAX - values.MIN) + 1)) +  values.MIN;
-                    figure = createFigure.createTriangle(sideA, sideB, sideC);
+                    figure = new Triangle(sideA, sideB, sideC);
                     break;
             }
             figuresArr.add(figure);

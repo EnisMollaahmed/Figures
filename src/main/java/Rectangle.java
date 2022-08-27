@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Rectangle implements Figure{
     private double length;
     private double width;
@@ -9,23 +11,16 @@ public class Rectangle implements Figure{
         length = lngth;
         width = wdth;
     }
+    Rectangle(String values){
+        Scanner scanner = new Scanner(values);
+        length = Double.parseDouble(scanner.next());
+        width = Double.parseDouble(scanner.next());
+    }
     Rectangle(Rectangle target){
         if(target != null){
             this.length = target.length;
             this.width = target.width;
         }
-    }
-    public void setLength(double length){
-        this.length = length;
-    }
-    public void setWidth(double width){
-        this.width = width;
-    }
-    public double getLength(){
-        return length;
-    }
-    public double getWidth(){
-        return width;
     }
     @Override
     public Figure clone(){
