@@ -1,9 +1,11 @@
+import lombok.Getter;
+import lombok.Setter;
 import java.util.Scanner;
 
 public class Triangle implements Figure {
-    private double sideA;
-    private double sideB;
-    private double sideC;
+    private @Getter @Setter double sideA;
+    private @Getter @Setter double sideB;
+    private @Getter @Setter double sideC;
     @Override
     public double perimeter(){
         return sideA + sideB + sideC;

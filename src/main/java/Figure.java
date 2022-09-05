@@ -1,5 +1,5 @@
 public interface Figure {
-    public double perimeter();
-    public Figure clone();
-    public String toString();
+    double perimeter();
+    Figure clone();
+    String toString();
 }

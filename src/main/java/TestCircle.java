@@ -11,8 +11,8 @@ public class TestCircle {
     }
     @Test
     public void testClone(){
-        Circle circle1 = new Circle(1);
-        Circle circle2 = circle1;
+        Figure circle1 = new Circle(1);
+        Figure circle2 = circle1.clone();
         assert (circle1.equals(circle2));
     }
     @Test

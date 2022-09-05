@@ -1,8 +1,8 @@
-import java.lang.Math;
+import lombok.Setter;
+import lombok.Getter;
 import java.util.Scanner;
-public class Circle implements Figure{
-    private double radius;
-    private ExtractString extractString;
+public class Circle implements Figure {
+    private @Getter @Setter double radius;
     @Override
     public double perimeter(){
         return 2 * Math.PI * radius;

@@ -7,18 +7,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ReadData {
-    private static ReadData instance;
-    private ExtractString extractString = new ExtractString();
-    private ReadData(){};
-    public static ReadData getInstance(){
-        if(instance == null){
-            instance = new ReadData();
-        }
-        return instance;
-    }
+    private final ExtractString extractString = new ExtractString();
+
     public void readFromFile(String fileName, ArrayList<Figure> figuresArr){
         CreateFigure createFigure = new CreateFigure();
-        Figure figure = null;
+        Figure figure;
         try {
             File myFile = new File(fileName);
             if (myFile.exists()){
@@ -32,24 +25,15 @@ public class ReadData {
                     figuresArr.add(figure);
                     line = buffReader.readLine();
                 }
-
                 buffReader.close();
             }else{
-                System.out.println("Invalid file name or file path!");
-                return;
+                System.out.println("Invalid file name or filepath!");
             }
         }catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
+        } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | InstantiationException |
+                 IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }
@@ -57,7 +41,7 @@ public class ReadData {
             InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         Scanner scanner = new Scanner(System.in);
         CreateFigure createFigure = new CreateFigure();
-        Figure figure = null;
+        Figure figure;
 
         for(int i = 0; i < figCount; i++){
             String figData = scanner.nextLine();

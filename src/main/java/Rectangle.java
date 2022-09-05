@@ -1,15 +1,16 @@
+import lombok.Getter;
+import lombok.Setter;
 import java.util.Scanner;
-
 public class Rectangle implements Figure{
-    private double length;
-    private double width;
+    private @Getter @Setter double length;
+    private @Getter @Setter double width;
     @Override
     public double perimeter(){
         return 2 * (length + width);
     }
-    Rectangle(double lngth, double wdth){
-        length = lngth;
-        width = wdth;
+    Rectangle(double length, double width){
+        this.length = length;
+        this.width = width;
     }
     Rectangle(String values){
         Scanner scanner = new Scanner(values);
