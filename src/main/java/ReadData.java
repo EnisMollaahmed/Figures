@@ -7,54 +7,43 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ReadData {
-    private final ExtractString extractString = new ExtractString();
+   
 
-    public void readFromFile(String fileName, ArrayList<Figure> figuresArr){
-        CreateFigure createFigure = new CreateFigure();
-        Figure figure;
+    public void readFromFile(String fileName, ArrayList<Figure> figuresArr) {
+        
+        File myFile = new File(fileName);
+
+        if ( ! myFile.exists()) {
+            throw new IllegalArgumentException("Invalid file name or filepath!");
+        }
+
         try {
-            File myFile = new File(fileName);
-            if (myFile.exists()){
-                FileReader file = new FileReader(myFile.getAbsolutePath());
-                BufferedReader buffReader = new BufferedReader(file);
-                String line = buffReader.readLine();
-                while( line  != null){
-                    String extractFigureName = extractString.extractFigureName(line);
-                    extractFigureName = FormatTheString.capitalize(extractFigureName);
-                    figure = createFigure.CreateOneFigure(extractFigureName, extractString.extractNumbers(line));
-                    figuresArr.add(figure);
-                    line = buffReader.readLine();
-                }
-                buffReader.close();
-            }else{
-                System.out.println("Invalid file name or filepath!");
+            FileReader file = new FileReader(myFile.getAbsolutePath());
+            BufferedReader buffReader = new BufferedReader(file);
+            String line = null;
+           
+            while( line = buffReader.readLine()){
+                figuresArr.add(FigureFactory.create(line));
             }
-        }catch (IOException e) {
+            
+            buffReader.close();
+        } catch (Exception e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
-        } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | InstantiationException |
-                 IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }
+
     public void readFromTheConsole(ArrayList<Figure> figuresArr, int figCount) throws ClassNotFoundException,
             InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        Scanner scanner = new Scanner(System.in);
-        CreateFigure createFigure = new CreateFigure();
-        Figure figure;
 
-        for(int i = 0; i < figCount; i++){
-            String figData = scanner.nextLine();
-            String figName = extractString.extractFigureName(figData);
-            while(!(figName.equals("circle")) && !(figName.equals("rectangle")) && !(figName.equals("triangle"))){
-                figData = scanner.nextLine();
-                figName = extractString.extractFigureName(figData);
-            }
-            figName = FormatTheString.capitalize(figName);
-            String values = extractString.extractNumbers(figData);
-            figure = createFigure.CreateOneFigure(figName,values);
-            figuresArr.add(figure);
+        Scanner scanner = new Scanner(System.in);
+
+        for(int i = 0; i < figCount; i++) {
+            String line = scanner.nextLine();
+            figuresArr.add(FigureFactory.create(line));
         }
+
         scanner.close();
     }
 }
