@@ -3,29 +3,34 @@ import java.util.Random;
 public class CreateRandom {
     private final GlobalConstsAndVars values = GlobalConstsAndVars.getInstance();
 
-    public void createRandomFigures(ArrayList<Figure> figuresArr, int figsCount){
-        Figure figure = null;
-        Random rand = new Random();
-        for (int i = 0; i < figsCount; i++){
-            int chooseFig = rand.nextInt(3);
-            switch (chooseFig) {
-                case 0 -> {
-                    double radius = (rand.nextDouble() * ((values.MAX - values.MIN) + 1)) + values.MIN;
-                    figure = new Circle(radius);
-                }
-                case 1 -> {
-                    double width = (rand.nextDouble() * ((values.MAX - values.MIN) + 1)) + values.MIN;
-                    double length = (rand.nextDouble() * ((values.MAX - values.MIN) + 1)) + values.MIN;
-                    figure = new Rectangle(length, width);
-                }
-                case 2 -> {
-                    double sideA = (rand.nextDouble() * ((values.MAX - values.MIN) + 1)) + values.MIN;
-                    double sideB = (rand.nextDouble() * ((values.MAX - values.MIN) + 1)) + values.MIN;
-                    double sideC = (rand.nextDouble() * ((values.MAX - values.MIN) + 1)) + values.MIN;
-                    figure = new Triangle(sideA, sideB, sideC);
-                }
+    public static final double MIN = 0.0;
+    public static final double MAX = 100.0;
+    private static Random rand = new Random();
+
+    public stataic int getRandomValue() {
+        return rand.nextDouble() * ((values.MAX - values.MIN) + 1)) + values.MIN;
+    }
+
+    public Figure createRandomFigure() {
+        switch (rand.nextInt(3)) {
+            case 0 -> {
+                return new Circle(getRandomValue());
             }
-            figuresArr.add(figure);
+            case 1 -> {
+                return new Rectangle(getRandomValue(), getRandomValue());
+            }
+            case 2 -> {
+                return new Triangle(getRandomValue(), getRandomValue(), getRandomValue());
+            }
+            default {
+                throw new Exception("Incorrect figure type!");
+            }
+        }
+    }
+
+    public void createRandomFigures(ArrayList<Figure> figuresArr, int figsCount) {
+        for (int i = 0; i < figsCount; i++){
+            figuresArr.add(createRandomFigure());
         }
     }
 }
