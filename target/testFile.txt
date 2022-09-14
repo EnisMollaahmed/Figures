@@ -1,0 +1,3 @@
+rectangle 12 15
+triangle 15 16 10
+circle 10
