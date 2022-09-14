@@ -4,12 +4,11 @@ public class FigureFactory {
                                                                          NoSuchMethodException,
                                                                          InvocationTargetException,
                                                                          InstantiationException,
-                                                                         IllegalAccessException {
-        String fullName = "Figures.src.main.java." + figureName;
-        Class fig = Class.forName(fullName);
-        Constructor constructor = fig.getConstructor(String.class);
-        Figure figure = constructor.newInstance(values);
-        return figure;
+                                                                         IllegalAccessException
+    {
+        Class<?> fig = Class.forName(figureName);
+        Constructor<?> constructor = fig.getConstructor(String.class);
+        return (Figure) constructor.newInstance(values);
     }
 
     public static Figure create(String figureInfo) throws   ClassNotFoundException,
@@ -20,6 +19,6 @@ public class FigureFactory {
     {
         String extractFigureName = ExtractString.extractFigureName(figureInfo);
         extractFigureName = FormatTheString.capitalize(extractFigureName);
-        return FigureFactory.create(extractFigureName, extractString.extractNumbers(figureInfo));
+        return FigureFactory.create(extractFigureName, ExtractString.extractNumbers(figureInfo));
     }
 }

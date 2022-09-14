@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -22,7 +21,7 @@ public class ReadData {
             BufferedReader buffReader = new BufferedReader(file);
             String line = null;
            
-            while( line = buffReader.readLine()){
+            while( (line = buffReader.readLine()) != null){
                 figuresArr.add(FigureFactory.create(line));
             }
             
